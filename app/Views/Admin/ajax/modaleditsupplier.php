@@ -13,7 +13,7 @@
                     <label class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-10">
                         <input type="text" name="nama" class="form-control" id="nama" placeholder="Nama"
-                            value="<?= $nama ?>">
+                            value="<?= $nama ?>" autofocus>
                         <div class="invalid-feedback error_nama">
 
                         </div>
@@ -84,62 +84,47 @@
                 },
                 success: function (response) {
                     if (response.error) {
-                        if (response.error.id_supplier) {
-                            $('#id_supplier').addClass('is-invalid');
-                            $('.error_id_supplier').html(response.error.id_supplier);
+
+                        if (response.error.nama) {
+                            $('#nama').addClass('is-invalid');
+                            $('.error_nama').html(response.error.nama);
                         } else {
-                            $('#id_supplier').removeClass('is-invalid');
-                            $('.error_id_supplier').html('');
+                            $('#nama').removeClass('is-invalid');
+                            $('.error_nama').html('');
                         }
 
-                        if (response.error.kategori) {
-                            $('#kategori').addClass('is-invalid');
-                            $('.error_kategori_barang').html(response.error.kategori);
+                        if (response.error.alamat) {
+                            $('#alamat').addClass('is-invalid');
+                            $('.error_alamat').html(response.error.alamat);
                         } else {
-                            $('#kategori').removeClass('is-invalid');
-                            $('.error_kategori_barang').html('');
+                            $('#alamat').removeClass('is-invalid');
+                            $('.error_alamat').html('');
                         }
 
-                        if (response.error.namabarang) {
-                            $('#namabarang').addClass('is-invalid');
-                            $('.error_nama_barang').html(response.error.namabarang);
+                        if (response.error.kota) {
+                            $('#kota').addClass('is-invalid');
+                            $('.error_kota').html(response.error.kota);
                         } else {
-                            $('#namabarang').removeClass('is-invalid');
-                            $('.error_nama_barang').html('');
+                            $('#kota').removeClass('is-invalid');
+                            $('.error_kota').html('');
                         }
-
-                        if (response.error.harga) {
-                            $('#harga').addClass('is-invalid');
-                            $('.error_harga_barang').html(response.error.harga);
+                        if (response.error.telepon) {
+                            $('#telepon').addClass('is-invalid');
+                            $('.error_telepon').html(response.error.telepon);
                         } else {
-                            $('#harga').removeClass('is-invalid');
-                            $('.error_harga_barang').html('');
+                            $('#telepon').removeClass('is-invalid');
+                            $('.error_telepon').html('');
                         }
-                        if (response.error.stok) {
-                            $('#stok').addClass('is-invalid');
-                            $('.error_stok_barang').html(response.error.stok);
-                        } else {
-                            $('#stok').removeClass('is-invalid');
-                            $('.error_stok_barang').html('');
-                        }
-                        if (response.error.supplier) {
-                            $('#supplier').addClass('is-invalid');
-                            $('.error_supplier_barang').html(response.error.supplier);
-                        } else {
-                            $('#supplier').removeClass('is-invalid');
-                            $('.error_supplier_barang').html('');
-                        }
-
-                    } else {
-                        alert("Hello! I am an alert box!!");
+                    } 
+                    if (response.error == undefined) {
                         Swal.fire({
                             icon: 'success',
                             title: 'Berhasil',
                             text: response.sukses,
                         })
 
-                        $('#modaleditbarang').modal('hide');
-                        databarang();
+                        $('#modaleditsupplier').modal('hide');
+                        datasupplier();
                     }
 
                 },

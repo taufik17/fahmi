@@ -179,7 +179,7 @@ class Supplier extends BaseController
 						'required' => '{field} tidak boleh kosong',
 					]
 				],
-				'telp' => [
+				'telepon' => [
 					'label' => 'Telepon',
 					'rules' => 'required',
 					'errors' => [
@@ -194,11 +194,21 @@ class Supplier extends BaseController
 						'nama'=> $validation->getError('nama'),
 						'alamat'=> $validation->getError('alamat'),
 						'kota'=> $validation->getError('kota'),
-						'telp'=> $validation->getError('telp'),
+						'telepon'=> $validation->getError('telepon'),
 						]
 					];
 			}
 			else {
+				$simpandatasupplier = [
+					'nama' => $this->request->getVar('nama'),
+					'alamat' => $this->request->getVar('alamat'),
+					'kota' => $this->request->getVar('kota'),
+					'telepon' => $this->request->getVar('telepon'),
+				];
+
+				$supplier = new Model_supplier;
+				$id_supplier = $this->request->getVar('id_supplier');
+				$supplier->update($id_supplier, $simpandatasupplier);
 				$msg = [
 					'sukses' => 'Berhasil Diubah'
 				];
@@ -212,7 +222,7 @@ class Supplier extends BaseController
 	public function hapussupplier(){
 		if ($this->request->isAJAX()) {
 			$id_supplier = $this->request->getVar('id_supplier');
-			$nama_supplier = $this->request->getVar('nama_supplier');
+			$nama_supplier = $this->request->getVar('nama');
 			$supplier = new Model_supplier;
 			$supplier->delete($id_supplier);
 			$msg = [

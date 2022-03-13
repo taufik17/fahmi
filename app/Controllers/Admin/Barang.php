@@ -9,7 +9,6 @@ class Barang extends BaseController
 {
 	public function index()
 	{
-		$barang = new Model_barang;
 		$data = [
 			'title' => 'UJIKOM | Barang',
 			'segment' => "barang",
@@ -182,14 +181,6 @@ class Barang extends BaseController
 		if ($this->request->isAJAX()) {
 			$validation = \Config\Services::validation();
 			$valid = $this->validate([
-				'id_barang' => [
-					'label' => 'ID Barang',
-					'rules' => 'required|is_unique[tabel_barang.id_barang]',
-					'errors' => [
-						'required' => '{field} tidak boleh kosong',
-						'is_unique' => '{field} tidak boleh sama',
-					]
-				],
 				'kategori' => [
 					'label' => 'Kategori Barang',
 					'rules' => 'required',
@@ -240,38 +231,25 @@ class Barang extends BaseController
 					];
 			} 
 			else {
-				echo "testing";
-				// $id_sup = $this->request->getVar('supplier');
-				// $supplier = new Model_supplier;
-				// $sup = $supplier->getNamaSupplier($id_sup);
-				// foreach ($sup as $key) {
-				// 	$nama_sup = $key['nama'];
-				// }
+				$id_sup = $this->request->getVar('supplier');
+				$supplier = new Model_supplier;
+				$sup = $supplier->getNamaSupplier($id_sup);
+				foreach ($sup as $key) {
+					$nama_sup = $key['nama'];
+				}
 
-				// 	$simpandatabarang = [
-				// 		// 'id_barang' => $this->request->getVar('id_barang'),
-				// 		// 'kategori' => $this->request->getVar('kategori'),
-				// 		// 'nama_barang' => $this->request->getVar('namabarang'),
-				// 		// 'harga' => $this->request->getVar('harga'),
-				// 		// 'stok' => $this->request->getVar('stok'),
-				// 		// 'id_sup' => $this->request->getVar('supplier'),
-				// 		// 'supplier' => $nama_sup,
-				// 		'id_barang' => 123,
-				// 		'kategori' => "tes",
-				// 		'nama_barang' => "tes",
-				// 		'harga' => 123,
-				// 		'stok' => 123,
-				// 		'supplier' => "tes",
-				// 	];
-				// 		$kategori = "tes";
-				// 		$nama_barang = "tes";
-				// 		$harga = 123;
-				// 		$stok = 123;
-				// 		$supplier = "tes";
-				// 		$id_barang = $this->request->getVar('id_barang');
-					
-				// 	$barang = new Model_barang;
-				// 	$barang->getUpdate($kategori, $nama_barang, $harga, $stok, $supplier, $id_barang);
+				$simpandatabarang = [
+					'kategori' => $this->request->getVar('kategori'),
+					'nama_barang' => $this->request->getVar('namabarang'),
+					'harga' => $this->request->getVar('harga'),
+					'stok' => $this->request->getVar('stok'),
+					'id_sup' => $this->request->getVar('supplier'),
+					'supplier' => $nama_sup,
+				];
+
+				$barang = new Model_barang;
+				$id_barang = $this->request->getVar('id_barang');
+				$barang->update($id_barang, $simpandatabarang);
 				$msg = [
 					'sukses' => 'Berhasil Diubah'
 				];

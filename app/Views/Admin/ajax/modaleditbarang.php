@@ -2,8 +2,8 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Barang : <?= $id_barang ?></h5> <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                <h5 class="modal-title">Edit Barang : <?= $id_barang ?></h5> <button type="button" class="close"
+                    data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
             <?= form_open('admin/barang/updatedatabarang', ['class' => 'formbarang']) ?>
             <?= csrf_field(); ?>
@@ -12,19 +12,19 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Kategori Barang</label>
                     <div class="col-sm-10">
-                        <input type="text" name="kategori" class="form-control" id="kategori" placeholder="Kategori Barang"
-                            value="<?= $kategori ?>">
+                        <input type="text" name="kategori" class="form-control" id="kategori"
+                            placeholder="Kategori Barang" value="<?= $kategori ?>">
                         <div class="invalid-feedback error_kategori_barang">
 
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Nama Barang</label>
                     <div class="col-sm-10">
-                        <input type="text" name="namabarang" class="form-control" id="namabarang" placeholder="Nama Barang"
-                            value="<?= $namabarang ?>">
+                        <input type="text" name="namabarang" class="form-control" id="namabarang"
+                            placeholder="Nama Barang" value="<?= $namabarang ?>">
                         <div class="invalid-feedback error_nama_barang">
 
                         </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                
+
             </div>
             <div class="modal-footer bg-whitesmoke">
                 <button type="submit" class="btn btn-primary btnsimpanbarang">
@@ -147,19 +147,17 @@
                             $('#supplier').removeClass('is-invalid');
                             $('.error_supplier_barang').html('');
                         }
-
-                    } else {
-                        alert("Hello! I am an alert box!!");
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: response.sukses,
-                        })
-
-                        $('#modaleditbarang').modal('hide');
-                        databarang();
                     }
+                    if (response.error == undefined) {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.sukses,
+                            })
 
+                            $('#modaleditbarang').modal('hide');
+                            databarang();
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
